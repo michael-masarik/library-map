@@ -3,19 +3,28 @@
 <head>
   <meta charset="utf-8">
   <title>Private Lending Libraries Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://unpkg.com/topojson-client@3"></script>
   <style>
+    @media (max-width: 480px) {
+      html {
+        font-size: 20px; /* bump base from 12px to 20px */
+      }
+    }
     .tooltip {
       position: absolute;
       text-align: center;
       padding: 4px 8px;
-      font-size: 14px;
       background: rgba(0, 0, 0, 0.7);
       color: white;
       border-radius: 4px;
       pointer-events: none;
       visibility: hidden;
+      z-index: 1000;
+      margin: auto 0;
+      font-size: 1.5rem !important;
+      
     }
     svg {
       width: 100%;
@@ -23,21 +32,25 @@
       display: block;
     }
     html, body {
-      height: 100%;
+      width: 100vw;
+      height:100vh ;
       margin: 0;
       display: flex;
       justify-content: center;
       align-items: center;
+      font-size: 12px;
     }
     body{
       background-color: rgb(17,71,72);
     }
+    
+
 
   </style>
 </head>
 <body>
 </body>
-  <svg width="960" height="600"></svg>
+  <svg viewBox="0 0 960 600" preserveAspectRatio="xMidYMid meet"></svg>
   <div class="tooltip" id="tooltip"></div>
   <script>
   const svg = d3.select("svg");
@@ -92,8 +105,11 @@
       // Add zoom behavior
       svg.call(d3.zoom()
         .scaleExtent([1, 8])
+        .translateExtent([[-Infinity, -Infinity], [Infinity, Infinity]])
         .on("zoom", (event) => {
           g.attr("transform", event.transform);
+          const zoomScale = event.transform.k;
+          d3.select("#tooltip").style("transform", `scale(${1 / zoomScale})`);
         }));
     });
   });
