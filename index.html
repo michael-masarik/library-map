@@ -7,11 +7,13 @@
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://unpkg.com/topojson-client@3"></script>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400;1,700&display=swap');
     @media (max-width: 480px) {
       html {
         font-size: 20px; /* bump base from 12px to 20px */
       }
     }
+    
     .tooltip {
       position: absolute;
       text-align: center;
@@ -43,6 +45,23 @@
     body{
       background-color: rgb(17,71,72);
     }
+    button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      background-color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #f0f0f0;
+    }
+    *{
+      font-family: 'Gentium Book Plus', serif;
+    }
     
 
 
@@ -50,6 +69,7 @@
 </head>
 <body>
 </body>
+  <button id="dir-button">View Private Lending Library Directory</button>
   <svg viewBox="0 0 960 600" preserveAspectRatio="xMidYMid meet"></svg>
   <div class="tooltip" id="tooltip"></div>
   <script>
@@ -113,6 +133,11 @@
         }));
     });
   });
+  </script>
+  <script>
+    document.getElementById("dir-button").addEventListener("click", function() {
+      window.location.href = "https://www.biblioguides.com/libraries/";
+    });
   </script>
 </body>
 </body>
