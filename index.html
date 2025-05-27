@@ -109,7 +109,7 @@
         .on("zoom", (event) => {
           g.attr("transform", event.transform);
           const zoomScale = event.transform.k;
-          d3.select("#tooltip").style("transform", `scale(${1 / zoomScale})`);
+          
         }));
     });
   });
