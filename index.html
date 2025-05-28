@@ -7,6 +7,25 @@
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://unpkg.com/topojson-client@3"></script>
   <style>
+  #recenter-button {
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    background-color: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1000;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+  }
+
+  #recenter-button:hover {
+    background-color: #f0f0f0;
+  }
     @import url('https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400;1,700&display=swap');
     @media (max-width: 480px) {
       html {
@@ -28,10 +47,11 @@
       font-size: 1.5rem !important;
       
     }
-    svg {
+    #map-svg {
       width: 100%;
       height: 100%;
       display: block;
+      z-index: 999;
     }
     html, body {
       width: 100vw;
@@ -52,9 +72,10 @@
       padding: 10px 20px;
       font-size: 1.2rem;
       background-color: #fff;
-      border: none;
+      border: 1px solid rgb(17,71,72);
       border-radius: 5px;
       cursor: pointer;
+      z-index: 1000;
     }
     button:hover {
       background-color: #f0f0f0;
@@ -62,18 +83,33 @@
     *{
       font-family: 'Gentium Book Plus', serif;
     }
-    
+    #percentage-container {
+      position: fixed;
+      top: 20px;
+      color: white;
+      font-size: 1.5rem;
+      margin: 0 auto;
+    }
 
 
   </style>
 </head>
 <body>
-</body>
   <button id="dir-button">View Private Lending Library Directory</button>
-  <svg viewBox="0 0 960 600" preserveAspectRatio="xMidYMid meet"></svg>
+  <button id="recenter-button" title="Recenter" aria-label="Recenter">
+  ⬆︎
+</svg>
+</button>
+  <div id="percentage-container">
+    <p id="percentage"></p>
+  </div>
+  
+  <svg id="map-svg" viewBox="0 0 960 600" preserveAspectRatio="xMidYMid meet"></svg>
+  
   <div class="tooltip" id="tooltip"></div>
   <script>
-  const svg = d3.select("svg");
+  const svg = d3.select("#map-svg");
+  const initialTransform = d3.zoomIdentity;
 
   // Add projection and path
   const projection = d3.geoAlbersUsa().scale(1280).translate([480, 300]);
@@ -122,23 +158,34 @@
         .attr("pointer-events", "none")
         .attr("d", path);
 
-      // Add zoom behavior
-      svg.call(d3.zoom()
+      // Define zoom behavior as a constant
+      const zoom = d3.zoom()
         .scaleExtent([1, 8])
         .translateExtent([[-Infinity, -Infinity], [Infinity, Infinity]])
         .on("zoom", (event) => {
           g.attr("transform", event.transform);
-          const zoomScale = event.transform.k;
-          
-        }));
+        });
+
+      svg.call(zoom);
+
+      document.getElementById("recenter-button").addEventListener("click", function() {
+        svg.transition()
+          .duration(750)
+          .call(zoom.transform, initialTransform);
+      });
+      const TOTAL_COUNTIES = 3143;
+      const libraries = Object.keys(colorMap).length;
+      const percentage = ((libraries / TOTAL_COUNTIES) * 100).toFixed(2);
+      document.getElementById("percentage").textContent = `Private Lending Libraries: ${libraries} (${percentage}%) of US Counties`;
     });
   });
   </script>
-  <script>
-    document.getElementById("dir-button").addEventListener("click", function() {
-      window.location.href = "https://www.biblioguides.com/libraries/";
-    });
-  </script>
+</script>
+<script>
+  document.getElementById("dir-button").addEventListener("click", function() {
+    window.location.href = "https://www.biblioguides.com/libraries/";
+  });
+</script>
 </body>
 </body>
 </html>
