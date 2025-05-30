@@ -25,39 +25,44 @@ def FIPS(lat,lon):
     fips = data['County']['FIPS']
     print(f"FIPS code: {fips}")
     return fips
+def check_file(filename, data):
+    try:
+        with open(filename, 'r') as file:
+            existing_data = json.load(file)
+            # Check if this pair already exists
+            exists = any(
+                entry.get("fips") == data["fips"] and entry.get("library") == data["library"]
+                for entry in existing_data
+            )
+            if exists:
+                print("Data already exists in the file.")
+            else:
+                existing_data.append(data)
+                with open(filename, 'w') as file:
+                    json.dump(existing_data, file, indent=4)
+                print("Data added to the file.")
+    except FileNotFoundError:
+        with open(filename, 'w') as file:
+            json.dump([data], file, indent=4)
+        print("File not found. Created a new file and added the data.")
 
 def main(city,state):
     lat, lon = get_lat_lon(city, state)
     if lat is not None and lon is not None:
         fips = FIPS(lat, lon)
-        data = { fips: library_name }
+        data = { "fips": fips, "library" : library_name }
         print(f"FIPS code for {city}, {state} is: {fips}")
         print("Libary JSON data:")
         print(data)
-        return data
-        
+        if data:
+            check_file('libraries-by-fips.json', data)
+            print("Data has been checked and updated in the file.") 
+        else:
+            print("No data to write to the file.")
+            return None
     else:
-        print("Could not find the location.")
+        print("Could not retrieve latitude and longitude for the given city and state.")
+        return None
 main(city_input, state_input)
-def check_file(filename, data):
-    try:
-        with open(filename, 'r') as file:
-            existing_data = json.load(file)
-            # data is a dict: {fips: library}
-            key, value = next(iter(data.items()))
-            # Check if this pair already exists
-            exists = any(entry["fips"] == key and entry["library"] == value for entry in existing_data)
-            if exists:
-                print("Data already exists in the file.")
-            else:
-                existing_data.append({"fips": key, "library": value})
-                with open(filename, 'w') as file:
-                    json.dump(existing_data, file, indent=4)
-                print("Data added to the file.")
-    except FileNotFoundError:
-        key, value = next(iter(data.items()))
-        with open(filename, 'w') as file:
-            json.dump([{"fips": key, "library": value}], file, indent=4)
-        print("File not found. Created a new file and added the data.")
 
 

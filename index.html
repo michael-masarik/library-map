@@ -115,7 +115,7 @@
   const projection = d3.geoAlbersUsa().scale(1280).translate([480, 300]);
   const path = d3.geoPath().projection(projection);
 
-  d3.json("libraries-by-fips.json").then(data => {
+  d3.json("https://maps.thecardcataloglibrarians.com/libraries-by-fips.json").then(data => {
   const libraryList = Array.isArray(data) ? data : data.default;
 
   if (!Array.isArray(libraryList)) {
