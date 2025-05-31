@@ -3,4 +3,4 @@ This is an interactive map of all Private Lending Libraries in the [Biblioguides
 > ### Tip
 > Hover over the yellow counties to view the names of the libraries in that county!
 
-To view the map, [click here](https://michael-masarik.github.io/library-map/)
+To view the map, [click here](https://maps.thecardcataloglibrarians.com)
