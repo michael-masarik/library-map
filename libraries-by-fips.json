@@ -366,5 +366,13 @@
     {
         "fips": "55083",
         "library": "Plumifield Living Library - Shire Branch"
+    },
+    {
+        "fips": "48491",
+        "library": "Fallen Sparrow Library"
+    },
+    {
+        "fips": "45015",
+        "library": "The Charlotte Finch Library"
     }
 ]
