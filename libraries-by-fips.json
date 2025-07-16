@@ -374,5 +374,9 @@
     {
         "fips": "45015",
         "library": "The Charlotte Finch Library"
+    },
+    {
+        "fips": "41065",
+        "library": "Windy Knoll Lending Library"
     }
 ]
