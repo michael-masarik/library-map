@@ -386,5 +386,9 @@
     {
         "fips": "46123",
         "library": "Aunt Minnie's Lending Library"
+    },
+    {
+        "fips": "18057",
+        "library": "Stay A While Living Books Library"
     }
 ]
