@@ -390,5 +390,13 @@
     {
         "fips": "18057",
         "library": "Stay A While Living Books Library"
+    },
+    {
+        "fips": "48113",
+        "library": "Townsend Family Library"
+    },
+    {
+        "fips": "31055",
+        "library": "The Garden Library"
     }
 ]
