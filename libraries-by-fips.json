@@ -402,5 +402,9 @@
     {
         "fips": "29095",
         "library": "Lilypad Library"
+    },
+    {
+        "fips": "18061",
+        "library": "The Curated Catalog"
     }
 ]
