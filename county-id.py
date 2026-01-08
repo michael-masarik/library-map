@@ -41,6 +41,7 @@ def check_file(filename, data):
                 with open(filename, 'w') as file:
                     json.dump(existing_data, file, indent=4)
                 print("Data added to the file.")
+                return len(existing_data)
     except FileNotFoundError:
         with open(filename, 'w') as file:
             json.dump([data], file, indent=4)
@@ -55,8 +56,9 @@ def main(city,state):
         print("Libary JSON data:")
         print(data)
         if data:
-            check_file('libraries-by-fips.json', data)
-            print("Data has been checked and updated in the file.") 
+            total = check_file('libraries-by-fips.json', data)
+            print("Data has been checked and updated in the file.")
+            print(f"Total entries in the file: {total}") 
         else:
             print("No data to write to the file.")
             return None
