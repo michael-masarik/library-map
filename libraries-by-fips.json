@@ -422,5 +422,13 @@
     {
         "fips": "26087",
         "library": "Pine Row Library"
+    },
+    {
+        "fips": "20079",
+        "library": "Conference Resource Library"
+    },
+    {
+        "fips": "29209",
+        "library": "The Veritas Homeschool Library"
     }
 ]
