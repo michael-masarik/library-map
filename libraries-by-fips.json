@@ -434,5 +434,13 @@
     {
         "fips": "13097",
         "library": "Caemlyn Academy Library"
+    },
+    {
+        "fips": "37111",
+        "library": "North Cove Book Nook"
+    },
+    {
+        "fips": "41071",
+        "library": "Heritage Books Lending Library"
     }
 ]
